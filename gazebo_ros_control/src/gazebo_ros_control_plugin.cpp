@@ -149,6 +149,12 @@ void GazeboRosControlPlugin::Load(gazebo::physics::ModelPtr parent, sdf::Element
     e_stop_sub_ = model_nh_.subscribe(e_stop_topic, 1, &GazeboRosControlPlugin::eStopCB, this);
   }
 
+  if (sdf_->HasElement("resetHardwareTopic"))
+  {
+    const std::string reset_hardware_topic = sdf_->GetElement("resetHardwareTopic")->Get<std::string>();
+    reset_hardware_sub_ = model_nh_.subscribe(reset_hardware_topic, 1, &GazeboRosControlPlugin::resetHardware, this);
+  }
+
   ROS_INFO_NAMED("gazebo_ros_control", "Starting gazebo_ros_control plugin in namespace: %s", robot_namespace_.c_str());
 
   // Read urdf from ros parameter server then
@@ -294,6 +300,12 @@ bool GazeboRosControlPlugin::parseTransmissionsFromURDF(const std::string& urdf_
 void GazeboRosControlPlugin::eStopCB(const std_msgs::BoolConstPtr& e_stop_active)
 {
   e_stop_active_ = e_stop_active->data;
+}
+
+// Reset hardware 
+void GazeboRosControlPlugin::resetHardware(const std_msgs::EmptyConstPtr& msg)
+{
+  robot_hw_sim_->resetControlCommands();
 }
 
 

@@ -112,6 +112,8 @@ namespace gazebo_ros_control {
     /// \param active  \c true if the emergency stop is active, \c false if not.
     virtual void eStopActive(const bool active) {}
 
+    virtual void resetControlCommands() = 0;
+
   };
 
 }

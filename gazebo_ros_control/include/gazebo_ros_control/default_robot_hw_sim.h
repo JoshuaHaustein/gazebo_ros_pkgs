@@ -88,6 +88,8 @@ public:
 
   virtual void eStopActive(const bool active);
 
+  virtual void resetControlCommands();
+
 protected:
   // Methods used to control a joint.
   enum ControlMethod {EFFORT, POSITION, POSITION_PID, VELOCITY, VELOCITY_PID};

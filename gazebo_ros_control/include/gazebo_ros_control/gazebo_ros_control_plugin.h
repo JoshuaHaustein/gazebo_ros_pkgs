@@ -47,6 +47,7 @@
 #include <ros/ros.h>
 #include <pluginlib/class_loader.h>
 #include <std_msgs/Bool.h>
+#include <std_msgs/Empty.h>
 
 // Gazebo
 #include <gazebo/gazebo.hh>
@@ -84,6 +85,7 @@ public:
 
 protected:
   void eStopCB(const std_msgs::BoolConstPtr& e_stop_active);
+  void resetHardware(const std_msgs::EmptyConstPtr& msg);
 
   // Node Handles
   ros::NodeHandle model_nh_; // namespaces to robot name
@@ -124,6 +126,7 @@ protected:
   // e_stop_active_ is true if the emergency stop is active.
   bool e_stop_active_, last_e_stop_active_;
   ros::Subscriber e_stop_sub_;  // Emergency stop subscriber
+  ros::Subscriber reset_hardware_sub_; // Reset subscriber
 
 };
 

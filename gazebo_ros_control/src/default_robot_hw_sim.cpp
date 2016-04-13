@@ -358,6 +358,16 @@ void DefaultRobotHWSim::eStopActive(const bool active)
   e_stop_active_ = active;
 }
 
+void DefaultRobotHWSim::resetControlCommands()
+{
+  for (unsigned int j = 0; j < n_dof_; ++j)
+  {
+    joint_position_command_[j] = 0.0;
+    joint_velocity_command_[j] = 0.0;
+    joint_effort_command_[j] = 0.0;
+  }
+}
+
 // Register the limits of the joint specified by joint_name and joint_handle. The limits are
 // retrieved from joint_limit_nh. If urdf_model is not NULL, limits are retrieved from it also.
 // Return the joint's type, lower position limit, upper position limit, and effort limit.
